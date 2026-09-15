@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>فوتبال‌های انرژی اتمی</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:linear-gradient(135deg,#06131f,#0b2638);color:#fff;font-family:Vazirmatn,Tahoma,sans-serif}.wrap{width:min(94%,760px);margin:auto;padding:30px 0 55px}.logo{text-align:center;color:#20e99a;font:32px Lalezar}.card{margin-top:20px;padding:25px;background:#0b2438;border:1px solid #205a78;border-radius:24px;box-shadow:0 18px 50px #0004}h1,h2{font-family:Lalezar;margin:0 0 10px}h1{color:#20e99a;font-size:34px}h2{font-size:26px}p{line-height:2;color:#b9cad5}input,textarea{width:100%;padding:13px;margin:7px 0 14px;border-radius:12px;border:1px solid #315d76;background:#061723;color:white;font:inherit}textarea{min-height:100px}button{border:0;border-radius:12px;padding:13px 18px;font:700 16px Vazirmatn;cursor:pointer}.yes{background:#19df8c;color:#032016;width:100%}.no{background:#ff5f78;color:#25030a;width:100%}.send{background:#173c52;color:white;width:100%}.choices{display:grid;grid-template-columns:1fr 1fr;gap:14px}.choice{padding:17px;text-align:center;background:#102f43;border:1px solid #315d76;border-radius:16px}.hidden{display:none!important}.ok{margin-top:14px;padding:12px;border-radius:12px;background:#0d4935;color:#8ff5c7}.hint{font-size:13px;color:#91aab8}
+</style>
+</head><body><div class="wrap">
+<div class="logo">ENERGY FOOTBALL SITE</div>
+<section id="survey" class="card"><h1 id="qTitle">نظر شما</h1><p id="qText">آیا برای شرکت در فوتبال سالن ثبت‌نام می‌کنید؟</p><div class="choices"><div class="choice"><b>مثبت</b><br><button class="yes" onclick="vote(true)">بله، می‌آیم</button></div><div class="choice"><b>منفی</b><br><button class="no" onclick="vote(false)">خیر</button></div></div></section>
+<section id="payment" class="card hidden"><h2>پرداخت</h2><p>انتخاب شما ثبت شد. اطلاعات پرداخت و تصویر رسید را ارسال کنید.</p><form id="paymentForm"><label>نام و نام خانوادگی</label><input id="name" required><label>شماره تماس</label><input id="phone" required><label>کد پیگیری</label><input id="tracking" required><label>توضیحات</label><textarea id="description"></textarea><label>تصویر رسید</label><input id="receipt" type="file" accept="image/*" required><button class="yes" type="submit">ثبت پرداخت</button></form><div id="paymentOk" class="ok hidden">اطلاعات پرداخت ثبت شد.</div></section>
+<section class="card"><h2>پیام به مدیر</h2><p>سؤال یا مشکلی داری؟ پیام را برای مدیر ارسال کن.</p><form id="messageForm"><label>نام</label><input id="messageName" required><label>پیام</label><textarea id="messageText" required></textarea><button class="send" type="submit">ارسال پیام به مدیر</button></form><div id="messageOk" class="ok hidden">پیام ارسال شد.</div></section>
+<p class="hint">این نسخه برای شروع و تست است. اتصال دیتابیس آنلاین در مرحله بعد انجام می‌شود.</p>
+</div>
+<script>
+const P='energyPayments',M='energyMessages';
+function vote(yes){if(yes){survey.classList.add('hidden');payment.classList.remove('hidden');scrollTo({top:0,behavior:'smooth'});}else{document.body.innerHTML='<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;background:#06131f;color:white;font-family:Vazirmatn,Tahoma"><div><h1 style="font-family:Lalezar;color:#20e99a">ممنون از پاسخ شما</h1><p>ثبت‌نام ادامه پیدا نکرد.</p></div></div>';}}
+paymentForm.addEventListener('submit',e=>{e.preventDefault();const f=receipt.files[0];let a=JSON.parse(localStorage.getItem(P)||'[]');a.push({name:name.value.trim(),phone:phone.value.trim(),tracking:tracking.value.trim(),description:description.value.trim(),receiptName:f?.name||'',status:'پرداخت شده',createdAt:new Date().toISOString()});localStorage.setItem(P,JSON.stringify(a));paymentOk.classList.remove('hidden');paymentForm.reset();});
+messageForm.addEventListener('submit',e=>{e.preventDefault();let a=JSON.parse(localStorage.getItem(M)||'[]');a.push({name:messageName.value.trim(),message:messageText.value.trim(),createdAt:new Date().toISOString()});localStorage.setItem(M,JSON.stringify(a));messageOk.classList.remove('hidden');messageForm.reset();});
+</script></body></html>
